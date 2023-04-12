@@ -56,6 +56,11 @@ export default defineConfig({
           landscape: false
         })
       ]
+    },
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "@/styles/variables.scss";'
+      }
     }
   }
 })

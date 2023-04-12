@@ -1,4 +1,6 @@
 /* color palette from <https://github.com/vuejs/theme> */
+/* :root为文档树的根元素，HTML中为 <html>元素 */
+/* 通过:root定义的全局变量 */
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;

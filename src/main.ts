@@ -4,7 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
-import './assets/main.css'
+import './styles/main.scss'
 
 // Toast,Dialog,Notify和ImagePreview组件是以函数的形式提供的，
 // unplugin-vue-components无法自动引入对应的样式，需要手动引入

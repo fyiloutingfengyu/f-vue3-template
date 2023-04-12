@@ -16,7 +16,7 @@ const onClickLeft = () => history.back()
   <div class='name'>f</div>
 
   <header>
-    <img alt='Vue logo' class='logo' src='@/assets/logo.svg' width='125' height='125' />
+    <img alt='Vue logo' class='logo' src='@/assets/images/logo.svg' width='125' height='125' />
 
     <div class='wrapper'>
       <HelloWorld msg='You did it!' />
@@ -31,9 +31,10 @@ const onClickLeft = () => history.back()
   <RouterView />
 </template>
 
-<style scoped>
+<style lang='scss' scoped>
 .name {
   font-size: 26px;
+  color: $color-primary;
 }
 
 header {
