@@ -5,16 +5,16 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
+import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
 
-// @ts-ignore  // todo f
-import postcsspxtoviewport from 'postcss-px-to-viewport'
+const path = require('path')
 
 // https://vitejs.dev/config/
 export default defineConfig({
   // 本地ip访问
   server: {
     port: 8099,
-    host: "0.0.0.0"
+    host: '0.0.0.0'
   },
   plugins: [
     vue(),
@@ -31,9 +31,15 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [
-        postcsspxtoviewport({
+        postcsspxtoviewport8plugin({
           unitToConvert: 'px', // 要转化的单位，默认为 px
-          viewportWidth: 375, // 视口宽度（设计稿的宽度）
+          viewportWidth: file => {
+            let num = 750
+            if (file.indexOf('node_modules/vant') !== -1) {
+              num = 375
+            }
+            return num
+          },
           unitPrecision: 6, // 转换后的精度(保留的小数位数)
           propList: ['*'], // 要转换单位的CSS属性，*代表全部css属性都进行单位转换
           viewportUnit: 'vw', // 转换后的单位，默认vw
@@ -45,20 +51,6 @@ export default defineConfig({
           // 过滤不包含 node_modules/vant的其他所有文件
           exclude: [/^(?!.*node_modules\/vant)/],
           landscape: false // 是否处理横屏情况
-        }),
-        postcsspxtoviewport({
-          unitToConvert: 'px',
-          viewportWidth: 750,
-          unitPrecision: 6,
-          propList: ['*'],
-          viewportUnit: 'vw',
-          fontViewportUnit: 'vw',
-          selectorBlackList: ['ignore-'],
-          minPixelValue: 1,
-          mediaQuery: true,
-          replace: true,
-          exclude: [/node_modules\/vant/i],
-          landscape: false
         })
       ]
     },
