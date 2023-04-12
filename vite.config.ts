@@ -11,6 +11,11 @@ import postcsspxtoviewport from 'postcss-px-to-viewport'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // 本地ip访问
+  server: {
+    port: 8099,
+    host: "0.0.0.0"
+  },
   plugins: [
     vue(),
     vueJsx(),
