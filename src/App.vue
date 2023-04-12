@@ -13,7 +13,7 @@ const onClickLeft = () => history.back()
     safe-area-inset-top
     @click-left='onClickLeft'
   />
-  <div class='name'>f</div>
+  <div class='name common-hairline--surround'>f</div>
 
   <header>
     <img alt='Vue logo' class='logo' src='@/assets/images/logo.svg' width='125' height='125' />
@@ -33,6 +33,8 @@ const onClickLeft = () => history.back()
 
 <style lang='scss' scoped>
 .name {
+  width:100px;
+  height:100px;
   font-size: 26px;
   color: $color-primary;
 }

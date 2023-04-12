@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+// 细边框
+@mixin hairline-common() {
+  position: absolute;
+  box-sizing: border-box;
+  content: ' ';
+  pointer-events: none;
+}
+
+@mixin hairline($color:var(--color-border)) {
+  @include hairline-common();
+
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  border: 0 solid $color; // 注意这里的border宽度是0，include到其他类中的时候，在引用的地方去设置边框宽度
+  transform: scale(0.5);
+}
+
+@mixin hairline-top($color:var(--color-border),$left:0,$right:0) {
+  @include hairline-common();
+
+  top: 0;
+  right: $right;
+  left: $left;
+  border-top: 1px solid $color;
+  transform: scaleY(0.5);
+}
+
+@mixin hairline-bottom($color:var(--color-border),$left:0,$right:0) {
+  @include hairline-common();
+
+  right: $right;
+  bottom: 0;
+  left: $left;
+  border-top: 1px solid $color;
+  transform: scaleY(0.5);
+}
+
+
+
