@@ -7,8 +7,6 @@ import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
 
-const path = require('path')
-
 // https://vitejs.dev/config/
 export default defineConfig({
   // 本地ip访问
