@@ -13,6 +13,8 @@ import 'vant/es/dialog/style';
 import 'vant/es/notify/style';
 import 'vant/es/image-preview/style';
 
+console.log(import.meta.env);
+console.log(import.meta.env.VITE_APP_ENV);
 
 const app = createApp(App)
 
