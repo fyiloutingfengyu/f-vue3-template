@@ -15,6 +15,8 @@ import 'vant/es/image-preview/style';
 
 console.log(import.meta.env);
 console.log(import.meta.env.VITE_APP_ENV);
+console.log(process.env.NODE_ENV)
+console.log()
 
 const app = createApp(App)
 
