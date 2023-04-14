@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { RouterView } from 'vue-router'
 
 const onClickLeft = () => history.back()
@@ -6,16 +6,16 @@ const onClickLeft = () => history.back()
 
 <template>
   <van-nav-bar
-    title='f-mall'
-    left-text='返回'
+    title="f-mall"
+    left-text="返回"
     left-arrow
     safe-area-inset-top
-    @click-left='onClickLeft'
+    @click-left="onClickLeft"
   />
   <RouterView />
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .name {
   width: 100px;
   height: 100px;

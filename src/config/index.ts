@@ -28,7 +28,4 @@ const MODE_URL = {
 // @ts-ignore // todo f
 const BASE_URL = MODE_URL[import.meta.env.VITE_APP_ENV].baseURL
 
-export {
-  BASE_URL,
-  MODE_URL
-}
+export { BASE_URL, MODE_URL }

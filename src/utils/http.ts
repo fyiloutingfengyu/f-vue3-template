@@ -2,7 +2,7 @@
  * @description: 公共请求拦截器版
  */
 import axios from 'axios'
-import { closeToast,showFailToast,showLoadingToast } from 'vant'
+import { closeToast, showFailToast, showLoadingToast } from 'vant'
 import pinia from '@/stores/pinia'
 
 // todo f
@@ -12,7 +12,7 @@ import { DOMAIN, removeLocalStorage } from '@/utils/common'
 import { ignoreTokenUrl } from '@/api/ignore-token'
 import { STORAGE_NAME } from '@/utils/constant'
 import { useAuthStore } from '@/stores/auth'
-import { BASE_URL } from '@/config/index'
+import { BASE_URL } from '@/config'
 
 const authStore = useAuthStore(pinia)
 
@@ -21,7 +21,7 @@ axios.defaults.baseURL = BASE_URL
 axios.defaults.timeout = 30000
 
 interface UrlArr {
-  [key: string]: any;
+  [key: string]: any
 }
 
 const urlArr: UrlArr = {}
@@ -74,7 +74,7 @@ const removeUrlCache = (options: HttpOptions) => {
 
 // 封装功能的请求
 const http = (options: HttpOptions) => {
-  console.log('http options',options)
+  console.log('http options', options)
   const defaultOptions = {
     isRepeatable: false, // 默认请求不可重复
     isLoading: true, // 默认添加loading
@@ -88,8 +88,8 @@ const http = (options: HttpOptions) => {
   const accessToken = authStore.token
 
   interface HeadersObj {
-    'Content-Type': string;
-    Authorization?: string;
+    'Content-Type': string
+    Authorization?: string
   }
 
   const headersObj: HeadersObj = {
@@ -114,66 +114,72 @@ const http = (options: HttpOptions) => {
     }
   }
 
-  axios.interceptors.request.use(config => {
-    return config
-  }, err => {
-    return err
-  })
-
-  axios.interceptors.response.use((response) => {
-    removeUrlCache(options)
-    closeToast()
-
-    if (options.isManualDealError) {
-      // 手动接口返回的处理错误
-      return response
-    } else {
-      // 自动处理接口返回的错误
-      switch (response.data.code) {
-        case 200:
-          console.log('接口返回的数据', response.data)
-          return response.data
-        default:
-          showFailToast(response.data.message)
-          return response.data
-      }
+  axios.interceptors.request.use(
+    (config) => {
+      return config
+    },
+    (err) => {
+      return err
     }
-  }, error => {
-    removeUrlCache(options)
-    closeToast()
+  )
 
-    if (options.isManualDealHttpError) {
-      // 手动处理http请求的错误
-      return error
-    } else {
-      // 自动处理http请求的错误
-      if (error.response) {
-        switch (error.response.status) {
-          case 401: // 未登录、登陆过期
-          case 402: // 未登录、登陆过期
-            showFailToast('身份认证失败,请重新登录！')
-            removeLocalStorage(STORAGE_NAME.TOKEN)
-            authStore.setToken('')
+  axios.interceptors.response.use(
+    (response) => {
+      removeUrlCache(options)
+      closeToast()
 
-            gotoLogin()
-            break
-          case 500:
-            showFailToast(error.response.data.message)
-            break
-          default:
-            if (process.env.NODE_ENV !== 'production') {
-              showFailToast(error.response.data.message)
-            } else {
-              showFailToast('服务异常，请稍后再试！')
-            }
-        }
-      } else if (error.request) {
-        showFailToast(error.message)
+      if (options.isManualDealError) {
+        // 手动接口返回的处理错误
+        return response
       } else {
-        showFailToast(error.message)
+        // 自动处理接口返回的错误
+        switch (response.data.code) {
+          case 200:
+            console.log('接口返回的数据', response.data)
+            return response.data
+          default:
+            showFailToast(response.data.message)
+            return response.data
+        }
+      }
+    },
+    (error) => {
+      removeUrlCache(options)
+      closeToast()
+
+      if (options.isManualDealHttpError) {
+        // 手动处理http请求的错误
+        return error
+      } else {
+        // 自动处理http请求的错误
+        if (error.response) {
+          switch (error.response.status) {
+            case 401: // 未登录、登陆过期
+            case 402: // 未登录、登陆过期
+              showFailToast('身份认证失败,请重新登录！')
+              removeLocalStorage(STORAGE_NAME.TOKEN)
+              authStore.setToken('')
+
+              gotoLogin()
+              break
+            case 500:
+              showFailToast(error.response.data.message)
+              break
+            default:
+              if (process.env.NODE_ENV !== 'production') {
+                showFailToast(error.response.data.message)
+              } else {
+                showFailToast('服务异常，请稍后再试！')
+              }
+          }
+        } else if (error.request) {
+          showFailToast(error.message)
+        } else {
+          showFailToast(error.message)
+        }
       }
     }
-  })
+  )
 
   return new Promise((resolve, reject) => {
     // 前置拦截，进入axios之前进行登录态和请求是否能重复发送的拦截，不用放在interceptors.request中
@@ -198,7 +204,7 @@ const http = (options: HttpOptions) => {
       // 缓存请求的url和data
       urlArr[requestUrl] = urlArr[requestUrl] || {}
 
-      const flag = 'req' + (++count)
+      const flag = 'req' + ++count
 
       urlArr[requestUrl][paramsStr] = flag
       options.flag = flag
@@ -224,10 +230,10 @@ const http = (options: HttpOptions) => {
     }
 
     interface Config {
-      headers: HeadersObj,
-      url: string,
-      method: any,
-      data?: any,
+      headers: HeadersObj
+      url: string
+      method: any
+      data?: any
       params?: any
     }
 
@@ -246,13 +252,14 @@ const http = (options: HttpOptions) => {
     }
 
     // @ts-ignore todo f
-    axios(config).then(res => {
-      resolve(res)
-    }).catch((err) => {
-      reject(err)
-    })
+    axios(config)
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((err) => {
+        reject(err)
+      })
   })
 }
 
 export { http }
-

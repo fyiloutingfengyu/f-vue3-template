@@ -6,6 +6,5 @@ export default {
   login: {
     url: '/api/login',
     method: 'post'
-  },
-
-};
+  }
+}

@@ -8,6 +8,4 @@ const STORAGE_NAME = {
   USER_INFO: 'userInfo' // 用户信息
 }
 
-export {
-  STORAGE_NAME
-}
+export { STORAGE_NAME }

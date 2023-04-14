@@ -1,10 +1,9 @@
 @charset "utf-8";
 
-@import 'reset.scss';
-@import 'base.css';
-@import './mixins/common.scss';
-@import './mixins/hairline.scss';
-
+@import "reset.scss";
+@import "base.css";
+@import "./mixins/common.scss";
+@import "./mixins/hairline.scss";
 
 // 单行文本省略
 .text-ellipsis {
@@ -35,7 +34,7 @@
 // 所有包含 'common-hairline' 字符串的class
 // 这里使用的是默认的颜色，是通用样式
 // 个性化的颜色可以使用 hairline.scss中的mixin去定制
-[class*='common-hairline'] {
+[class*="common-hairline"] {
   &::after {
     @include hairline();
   }

@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { http } from '@/utils/http'
 import loginApi from '@/api/login'
 
@@ -17,35 +17,27 @@ const toLogin = () => {
       pwd: '123'
     },
     isManualDealError: true
-  }).then(res => {
-    console.log(666, res)
-  }).catch(err => {
-    console.log(err)
   })
+    .then((res) => {
+      console.log(666, res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
-
 </script>
 
 <template>
-  <van-swipe class='home-swipe'
-             :autoplay='3000'
-             height='300'
-             lazy-render>
-    <van-swipe-item v-for='image in images' :key='image'>
-      <img :src='image' />
+  <van-swipe class="home-swipe" :autoplay="3000" height="300" lazy-render>
+    <van-swipe-item v-for="image in images" :key="image">
+      <img :src="image" />
     </van-swipe-item>
   </van-swipe>
 
-  <van-button
-    type='default'
-    size='mini'
-    @click='toLogin'
-  >
-    login
-  </van-button>
+  <van-button type="default" size="mini" @click="toLogin"> login </van-button>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .home-swipe {
   .van-swipe-item {
     img {
@@ -54,9 +46,8 @@ const toLogin = () => {
       height: 300px;
       padding: 30px 60px;
       background-color: var(--van-white);
-      pointer-events: none
+      pointer-events: none;
     }
   }
-
 }
 </style>

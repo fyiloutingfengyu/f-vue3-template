@@ -8,10 +8,10 @@ export default [
       return {
         code: 0,
         data: {
-          name: 'f',
-        },
+          name: 'f'
+        }
       }
-    },
+    }
   },
   {
     url: '/api/login',
@@ -20,8 +20,8 @@ export default [
     response: {
       code: 0,
       data: {
-        token: 'token-string',
-      },
-    },
-  },
+        token: 'token-string'
+      }
+    }
+  }
 ] as MockMethod[]
