@@ -19,7 +19,7 @@ interface HttpOptions {
 
 // loading 的参数
 interface LoadingObj {
-  mask?: boolean;
+  overlay?: boolean;
   message?: any;
   duration?: number;
   className?: any;

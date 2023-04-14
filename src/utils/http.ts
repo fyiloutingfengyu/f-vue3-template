@@ -2,7 +2,8 @@
  * @description: 公共请求拦截器版
  */
 import axios from 'axios'
-import { Toast } from 'vant'
+import { closeToast,showFailToast,showLoadingToast } from 'vant'
+import pinia from '@/stores/pinia'
 
 // todo f
 import type { HttpOptions, LoadingObj } from '@/interface/common'
@@ -11,11 +12,11 @@ import { DOMAIN, removeLocalStorage } from '@/utils/common'
 import { ignoreTokenUrl } from '@/api/ignore-token'
 import { STORAGE_NAME } from '@/utils/constant'
 import { useAuthStore } from '@/stores/auth'
+import { BASE_URL } from '@/config/index'
 
-const authStore = useAuthStore()
-const commonConfig = require('@/config/index')
+const authStore = useAuthStore(pinia)
 
-axios.defaults.baseURL = commonConfig.BASE_URL
+axios.defaults.baseURL = BASE_URL
 // 请求超时时间
 axios.defaults.timeout = 30000
 
@@ -73,6 +74,7 @@ const removeUrlCache = (options: HttpOptions) => {
 
 // 封装功能的请求
 const http = (options: HttpOptions) => {
+  console.log('http options',options)
   const defaultOptions = {
     isRepeatable: false, // 默认请求不可重复
     isLoading: true, // 默认添加loading
@@ -112,76 +114,6 @@ const http = (options: HttpOptions) => {
     }
   }
 
-  // 前置拦截，进入axios之前进行登录态和请求是否能重复发送的拦截，不用放在interceptors.request中
-
-  // 本地不存在token且是需要校验token的接口，直接提示去登录 （如首次访问首页的情况）
-  if (!isIgnoreToken && !accessToken) {
-    Toast.fail('登录后才可以访问哦！')
-    gotoLogin()
-    return
-  }
-
-  // 请求不能重复
-  if (!options.isRepeatable) {
-    const requestUrl = options.url
-    const paramsStr = options.params ? JSON.stringify(options.params) : '_'
-
-    // url和参数都相同的请求认为是重复提交
-    if (urlArr[requestUrl] && urlArr[requestUrl][paramsStr]) {
-      return
-    }
-
-    // 缓存请求的url和data
-    urlArr[requestUrl] = urlArr[requestUrl] || {}
-
-    const flag = 'req' + (++count)
-
-    urlArr[requestUrl][paramsStr] = flag
-    options.flag = flag
-  }
-
-  const loadingObj: LoadingObj = {
-    duration: 0, // 持续展示 toast
-    message: '加载中...',
-    forbidClick: true,
-    loadingType: 'spinner',
-    mask: false
-  }
-
-  // 添加loading
-  if (options.isLoading) {
-    const loadingConfig = options.loadingConfig
-
-    if (loadingConfig) {
-      Object.assign(loadingObj, loadingConfig)
-    }
-
-    Toast.loading(loadingObj)
-  }
-
-  interface Config {
-    headers: HeadersObj,
-    url: string,
-    method: any,
-    data?: any,
-    params?: any
-  }
-
-  const config: Config = {
-    headers: headersObj,
-    url: options.url,
-    method: options.method || 'get'
-  }
-
-  const methodsList = ['put', 'PUT', 'post', 'POST', 'patch', 'PATCH']
-
-  if (methodsList.includes(config.method)) {
-    config['data'] = options.params
-  } else {
-    config['params'] = options.params
-  }
-
-
   axios.interceptors.request.use(config => {
     return config
   }, err => {
@@ -190,7 +122,7 @@ const http = (options: HttpOptions) => {
 
   axios.interceptors.response.use((response) => {
     removeUrlCache(options)
-    Toast.clear()
+    closeToast()
 
     if (options.isManualDealError) {
       // 手动接口返回的处理错误
@@ -202,13 +134,13 @@ const http = (options: HttpOptions) => {
           console.log('接口返回的数据', response.data)
           return response.data
         default:
-          Toast.fail(response.data.message)
+          showFailToast(response.data.message)
           return response.data
       }
     }
   }, error => {
     removeUrlCache(options)
-    Toast.clear()
+    closeToast()
 
     if (options.isManualDealHttpError) {
       // 手动处理http请求的错误
@@ -219,31 +151,100 @@ const http = (options: HttpOptions) => {
         switch (error.response.status) {
           case 401: // 未登录、登陆过期
           case 402: // 未登录、登陆过期
-            Toast.fail('身份认证失败,请重新登录！')
+            showFailToast('身份认证失败,请重新登录！')
             removeLocalStorage(STORAGE_NAME.TOKEN)
             authStore.setToken('')
 
             gotoLogin()
             break
           case 500:
-            Toast.fail(error.response.data.message)
+            showFailToast(error.response.data.message)
             break
           default:
-            if (process.env.VUE_APP_ENV !== 'production') {
-              Toast.fail(error.response.data.message)
+            if (process.env.NODE_ENV !== 'production') {
+              showFailToast(error.response.data.message)
             } else {
-              Toast.fail('服务异常，请稍后再试！')
+              showFailToast('服务异常，请稍后再试！')
             }
         }
       } else if (error.request) {
-        Toast.fail(error.message)
+        showFailToast(error.message)
       } else {
-        Toast.fail(error.message)
+        showFailToast(error.message)
       }
     }
   })
 
   return new Promise((resolve, reject) => {
+    // 前置拦截，进入axios之前进行登录态和请求是否能重复发送的拦截，不用放在interceptors.request中
+
+    // 本地不存在token且是需要校验token的接口，直接提示去登录 （如首次访问首页的情况）
+    if (!isIgnoreToken && !accessToken) {
+      showFailToast('登录后才可以访问哦！')
+      gotoLogin()
+      return
+    }
+
+    // 请求不能重复
+    if (!options.isRepeatable) {
+      const requestUrl = options.url
+      const paramsStr = options.params ? JSON.stringify(options.params) : '_'
+
+      // url和参数都相同的请求认为是重复提交
+      if (urlArr[requestUrl] && urlArr[requestUrl][paramsStr]) {
+        return
+      }
+
+      // 缓存请求的url和data
+      urlArr[requestUrl] = urlArr[requestUrl] || {}
+
+      const flag = 'req' + (++count)
+
+      urlArr[requestUrl][paramsStr] = flag
+      options.flag = flag
+    }
+
+    const loadingObj: LoadingObj = {
+      duration: 0, // 持续展示 toast
+      message: '加载中...',
+      forbidClick: true,
+      loadingType: 'spinner',
+      overlay: false
+    }
+
+    // 添加loading
+    if (options.isLoading) {
+      const loadingConfig = options.loadingConfig
+
+      if (loadingConfig) {
+        Object.assign(loadingObj, loadingConfig)
+      }
+
+      showLoadingToast(loadingObj)
+    }
+
+    interface Config {
+      headers: HeadersObj,
+      url: string,
+      method: any,
+      data?: any,
+      params?: any
+    }
+
+    const config: Config = {
+      headers: headersObj,
+      url: options.url,
+      method: options.method || 'get'
+    }
+
+    const methodsList = ['put', 'PUT', 'post', 'POST', 'patch', 'PATCH']
+
+    if (methodsList.includes(config.method)) {
+      config['data'] = options.params
+    } else {
+      config['params'] = options.params
+    }
+
     // @ts-ignore todo f
     axios(config).then(res => {
       resolve(res)
