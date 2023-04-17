@@ -6,6 +6,20 @@ import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
 import { viteMockServe } from 'vite-plugin-mock'
+import { visualizer } from 'rollup-plugin-visualizer'
+import requireTransform from 'vite-plugin-require-transform'
+
+const useViteMockServe = (mode: string) => {
+  // process.cwd()前执行node命令时候的文件夹地址
+  if (loadEnv(mode, process.cwd()).VITE_APP_ENV === 'mock') {
+    return viteMockServe({
+      mockPath: 'mock', // 默认值 'mock'
+      supportTs: true, // 默认值 true
+      localEnabled: true,
+      prodEnabled: false
+    })
+  }
+}
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
@@ -15,17 +29,22 @@ export default ({ mode }: { mode: string }) => {
       port: 8099,
       host: '0.0.0.0'
     },
+    build: {
+      minify: 'esbuild'
+    },
+    esbuild: {
+      drop: mode === 'production' ? ['console', 'debugger'] : []
+    },
     plugins: [
       vue(),
       vueJsx(),
       Components({
         resolvers: [VantResolver()] // 按需引入Vant组件的样式
       }),
-      viteMockServe({
-        mockPath: 'mock', // 默认值 'mock'
-        supportTs: true, // 默认值 true
-        // process.cwd()前执行node命令时候的文件夹地址
-        localEnabled: loadEnv(mode, process.cwd()).VITE_APP_ENV === 'mock'
+      useViteMockServe(mode),
+      visualizer({}),
+      requireTransform({
+        fileRegex: /.ts$|.vue$/
       })
     ],
     resolve: {

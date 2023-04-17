@@ -125,7 +125,7 @@ const setPageTitle = (title: string) => {
  * @param {number} h - 二维码的高度，单位 px
  * @param {HTMLElement} qrContainer - 包裹生成的二维码的父级元素dom或级元素id
  */
-const createQrCode = (
+/*const createQrCode = (
   url: string,
   w = 100,
   h = 100,
@@ -145,7 +145,7 @@ const createQrCode = (
 
   qrCode.clear() //清除二维码
   qrCode.makeCode(url) //生成新的二维码
-}
+}*/
 
 export {
   dateFormat,
@@ -157,5 +157,5 @@ export {
   isAndroid,
   isiOS,
   setPageTitle,
-  createQrCode
+  // createQrCode
 }
