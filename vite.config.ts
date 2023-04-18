@@ -33,7 +33,7 @@ export default ({ mode }: { mode: string }) => {
       minify: 'esbuild'
     },
     esbuild: {
-      drop: mode === 'production' ? ['console', 'debugger'] : []
+      drop: loadEnv(mode, process.cwd()).VITE_APP_ENV === 'production' ? ['console', 'debugger'] : []
     },
     plugins: [
       vue(),

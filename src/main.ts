@@ -2,8 +2,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import { setupProdMockServer } from '@/mock'
-
 import './styles/main.scss'
 
 // Toast,Dialog,Notify和ImagePreview组件是以函数的形式提供的，
@@ -18,7 +16,12 @@ console.log(import.meta.env.VITE_APP_ENV)
 console.log(process.env.NODE_ENV)
 
 if (import.meta.env.VITE_APP_ENV === 'mock') {
-  setupProdMockServer()
+  const mockModule = import.meta.glob('./mock/index.ts')
+  console.log(mockModule)
+
+    mockModule['./mock/index.ts']().then((mod:any)=>{
+      mod.setupProdMockServer()
+  })
 }
 
 const app = createApp(App)
