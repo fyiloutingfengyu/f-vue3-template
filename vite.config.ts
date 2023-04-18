@@ -8,6 +8,7 @@ import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
 import { viteMockServe } from 'vite-plugin-mock'
 import { visualizer } from 'rollup-plugin-visualizer'
 import requireTransform from 'vite-plugin-require-transform'
+import legacy from '@vitejs/plugin-legacy' // 处理浏览器兼容性
 
 const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
@@ -45,6 +46,9 @@ export default ({ mode }: { mode: string }) => {
       visualizer({}),
       requireTransform({
         fileRegex: /.ts$|.vue$/
+      }),
+      legacy({
+        targets: ['defaults', 'not IE 11']
       })
     ],
     resolve: {
