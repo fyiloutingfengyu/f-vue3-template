@@ -34,13 +34,14 @@ const toLogin = () => {
     </van-swipe-item>
   </van-swipe>
 
-  <van-button type="default" size="mini" @click="toLogin"> login </van-button>
+  <van-button type="primary" size="mini" @click="toLogin"> login</van-button>
+  <img class="visible-hidden" src="@/assets/images/test_pic.jpg" alt="">
+  <i class="alipay-icon"></i>
 </template>
 
 <style lang="scss" scoped>
 .home-swipe {
   .van-swipe-item {
-    visibility: hidden;
     img {
       display: block;
       width: 100%;
@@ -50,5 +51,17 @@ const toLogin = () => {
       pointer-events: none;
     }
   }
+}
+
+.visible-hidden {
+  visibility: hidden;
+}
+
+.alipay-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url("../assets/images/icon_apliay.png") no-repeat left center;
+  background-size: 100% 100%;
 }
 </style>

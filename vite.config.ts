@@ -35,12 +35,17 @@ export default ({ mode }: { mode: string }) => {
     build: {
       minify: 'esbuild',
       rollupOptions: {
-        external: ['vue'],
         plugins: [
           externalGlobals({
             vue: 'Vue'
           })
-        ]
+        ],
+        output: {
+          format: 'es',
+          globals: {
+            vue: 'Vue'
+          }
+        }
       }
     },
     esbuild: {
