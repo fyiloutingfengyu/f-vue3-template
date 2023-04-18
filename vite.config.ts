@@ -9,6 +9,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 import { visualizer } from 'rollup-plugin-visualizer'
 import requireTransform from 'vite-plugin-require-transform'
 import legacy from '@vitejs/plugin-legacy' // 处理浏览器兼容性
+import externalGlobals from 'rollup-plugin-external-globals'
 
 const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
@@ -31,7 +32,15 @@ export default ({ mode }: { mode: string }) => {
       host: '0.0.0.0'
     },
     build: {
-      minify: 'esbuild'
+      minify: 'esbuild',
+      rollupOptions: {
+        external: ['vue'],
+        plugins: [
+          externalGlobals({
+            vue: 'Vue'
+          })
+        ]
+      }
     },
     esbuild: {
       drop: loadEnv(mode, process.cwd()).VITE_APP_ENV === 'production' ? ['console', 'debugger'] : []
@@ -42,14 +51,15 @@ export default ({ mode }: { mode: string }) => {
       Components({
         resolvers: [VantResolver()] // 按需引入Vant组件的样式
       }),
-      useViteMockServe(mode),
-      visualizer({}),
       requireTransform({
         fileRegex: /.ts$|.vue$/
       }),
+      externalGlobals({}),
       legacy({
         targets: ['defaults', 'not IE 11']
-      })
+      }),
+      useViteMockServe(mode),
+      visualizer({})
     ],
     resolve: {
       alias: {
