@@ -40,6 +40,7 @@ const toLogin = () => {
 <style lang="scss" scoped>
 .home-swipe {
   .van-swipe-item {
+    visibility: hidden;
     img {
       display: block;
       width: 100%;

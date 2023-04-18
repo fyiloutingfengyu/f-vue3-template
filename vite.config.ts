@@ -10,6 +10,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import requireTransform from 'vite-plugin-require-transform'
 import legacy from '@vitejs/plugin-legacy' // 处理浏览器兼容性
 import externalGlobals from 'rollup-plugin-external-globals'
+import viteCompression from 'vite-plugin-compression'
 
 const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
@@ -57,6 +58,12 @@ export default ({ mode }: { mode: string }) => {
       externalGlobals({}),
       legacy({
         targets: ['defaults', 'not IE 11']
+      }),
+      viteCompression({
+        verbose: true,
+        disable: false,
+        algorithm: 'gzip',
+        ext: '.gz'
       }),
       useViteMockServe(mode),
       visualizer({})
