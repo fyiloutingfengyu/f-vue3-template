@@ -11,6 +11,7 @@ import requireTransform from 'vite-plugin-require-transform'
 import legacy from '@vitejs/plugin-legacy' // 处理浏览器兼容性
 // import externalGlobals from 'rollup-plugin-external-globals'
 import viteCompression from 'vite-plugin-compression'
+import path from 'path'
 
 const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
@@ -27,23 +28,38 @@ const useViteMockServe = (mode: string) => {
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
-    base:'/', // 开发或生产服务的公共基础路径，默认值为 '/'
-    /*build: {
+    base: '/', // 开发或生产服务的公共基础路径，默认值为 '/'
+    build: {
       minify: 'esbuild',
       rollupOptions: {
-        plugins: [
+        /*plugins: [
           externalGlobals({
             vue: 'Vue'
           })
-        ],
+        ],*/
         output: {
-          format: 'es',
+          /*format: 'es',
           globals: {
             vue: 'Vue'
+          },*/
+          // 指定chunks的入口文件模式
+          entryFileNames: 'assets/js/[name].[hash].js',
+          // 对代码分割产生的chunk进行自定义命名
+          chunkFileNames: 'assets/js/[name].[hash].js',
+          // 自定义构建结果中静态资源的名称
+          assetFileNames: (assetInfo) => {
+            let subDir = 'img'
+
+            // @ts-ignore
+            if (path.extname(assetInfo.name) === '.css') {
+              subDir = 'css'
+            }
+
+            return `assets/${subDir}/[name].[hash].[ext]`
           }
         }
       }
-    },*/
+    },
     esbuild: {
       drop: loadEnv(mode, process.cwd()).VITE_APP_ENV === 'production' ? ['console', 'debugger'] : []
     },
