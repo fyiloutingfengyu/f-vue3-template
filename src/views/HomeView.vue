@@ -35,7 +35,7 @@ const toLogin = () => {
   </van-swipe>
 
   <van-button type="primary" size="mini" @click="toLogin"> login</van-button>
-  <img class="visible-hidden" src="@/assets/images/test_pic.jpg" alt="">
+  <img class="test-pic" src="@/assets/images/test_pic.jpg" alt="">
   <i class="alipay-icon"></i>
 </template>
 
@@ -53,14 +53,15 @@ const toLogin = () => {
   }
 }
 
-.visible-hidden {
+.test-pic {
   visibility: hidden;
+  width: 100%;
 }
 
 .alipay-icon {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   background: url("../assets/images/icon_apliay.png") no-repeat left center;
   background-size: 100% 100%;
 }

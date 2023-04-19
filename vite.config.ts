@@ -9,7 +9,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 import { visualizer } from 'rollup-plugin-visualizer'
 import requireTransform from 'vite-plugin-require-transform'
 import legacy from '@vitejs/plugin-legacy' // 处理浏览器兼容性
-import externalGlobals from 'rollup-plugin-external-globals'
+// import externalGlobals from 'rollup-plugin-external-globals'
 import viteCompression from 'vite-plugin-compression'
 
 const useViteMockServe = (mode: string) => {
@@ -32,7 +32,7 @@ export default ({ mode }: { mode: string }) => {
       port: 8099,
       host: '0.0.0.0'
     },
-    build: {
+    /*build: {
       minify: 'esbuild',
       rollupOptions: {
         plugins: [
@@ -47,7 +47,7 @@ export default ({ mode }: { mode: string }) => {
           }
         }
       }
-    },
+    },*/
     esbuild: {
       drop: loadEnv(mode, process.cwd()).VITE_APP_ENV === 'production' ? ['console', 'debugger'] : []
     },
@@ -55,12 +55,14 @@ export default ({ mode }: { mode: string }) => {
       vue(),
       vueJsx(),
       Components({
-        resolvers: [VantResolver()] // 按需引入Vant组件的样式
+        resolvers: [
+          VantResolver({
+            // importStyle: false // 按需引入Vant组件时，不导入样式
+          })]
       }),
       requireTransform({
         fileRegex: /.ts$|.vue$/
       }),
-      externalGlobals({}),
       legacy({
         targets: ['defaults', 'not IE 11']
       }),
@@ -98,8 +100,6 @@ export default ({ mode }: { mode: string }) => {
             minPixelValue: 1, // 小于或等于1px则不进行转换
             mediaQuery: true, // 是否在媒体查询的css代码中进行单位转换，默认false
             replace: true, // 是否转换后直接更换属性值
-            // 过滤不包含 node_modules/vant的其他所有文件
-            exclude: [/^(?!.*node_modules\/vant)/],
             landscape: false // 是否处理横屏情况
           })
         ]

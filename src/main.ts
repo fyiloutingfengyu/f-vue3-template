@@ -2,7 +2,8 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import './styles/main.scss'
+import 'vant/lib/index.css'
+// import './styles/main.scss'
 
 // Toast,Dialog,Notify和ImagePreview组件是以函数的形式提供的，
 // unplugin-vue-components无法自动引入对应的样式，需要手动引入
@@ -19,8 +20,8 @@ if (import.meta.env.VITE_APP_ENV === 'mock') {
   const mockModule = import.meta.glob('./mock/index.ts')
   console.log(mockModule)
 
-    mockModule['./mock/index.ts']().then((mod:any)=>{
-      mod.setupProdMockServer()
+  mockModule['./mock/index.ts']().then((mod: any) => {
+    mod.setupProdMockServer()
   })
 }
 
