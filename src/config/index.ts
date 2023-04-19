@@ -5,27 +5,27 @@
 const MODE_URL = {
   // 生产环境
   production: {
-    baseURL: 'https://h5.prd.f.com',
-    cdnURL: 'https://f-h5.cdn.f.com/resource/'
+    apiBaseUrl: 'https://h5.prd.f.com',
+    cdnBaseUrl: 'https://f-h5.cdn.f.com/resource/'
   },
   // 测试环境
   test: {
-    baseURL: 'https://h5.test.f.com',
-    cdnURL: 'https://f-h5-test.cdn.f.com/resource/'
+    apiBaseUrl: 'https://h5.test.f.com',
+    cdnBaseUrl: 'https://f-h5-test.cdn.f.com/resource/'
   },
   // 开发环境
   development: {
-    baseURL: 'https://h5.test.f.com',
-    cdnURL: import.meta.env.BASE_URL
+    apiBaseUrl: 'https://h5.test.f.com',
+    cdnBaseUrl: ''
   },
   // 数据mock
   mock: {
-    baseURL: '',
-    cdnURL: import.meta.env.BASE_URL
+    apiBaseUrl: '',
+    cdnBaseUrl: ''
   }
 }
 
 // @ts-ignore // todo f
-const BASE_URL = MODE_URL[import.meta.env.VITE_APP_ENV].baseURL
+const API_BASE_URL = MODE_URL[import.meta.env.VITE_APP_ENV].apiBaseUrl
 
-export { BASE_URL, MODE_URL }
+export { API_BASE_URL, MODE_URL }

@@ -12,11 +12,11 @@ import { DOMAIN, removeLocalStorage } from '@/utils/common'
 import { ignoreTokenUrl } from '@/api/ignore-token'
 import { STORAGE_NAME } from '@/utils/constant'
 import { useAuthStore } from '@/stores/auth'
-import { BASE_URL } from '@/config'
+import { API_BASE_URL } from '@/config'
 
 const authStore = useAuthStore(pinia)
 
-axios.defaults.baseURL = BASE_URL
+axios.defaults.baseURL = API_BASE_URL
 // 请求超时时间
 axios.defaults.timeout = 30000
 

@@ -27,11 +27,7 @@ const useViteMockServe = (mode: string) => {
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
-    // 本地ip访问
-    server: {
-      port: 8099,
-      host: '0.0.0.0'
-    },
+    base:'/', // 开发或生产服务的公共基础路径，默认值为 '/'
     /*build: {
       minify: 'esbuild',
       rollupOptions: {
@@ -109,6 +105,11 @@ export default ({ mode }: { mode: string }) => {
           additionalData: '@import "@/styles/variables.scss";'
         }
       }
+    },
+    // 本地ip访问
+    server: {
+      port: 8099,
+      host: '0.0.0.0'
     }
   })
 }
