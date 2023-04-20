@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { RouterView } from 'vue-router'
+import { usePageStore } from '@/stores/page'
 
 const onClickLeft = () => history.back()
+const pageStore = usePageStore()
+
+let title = computed(() => {
+  return pageStore.pageTitle
+})
+
 </script>
 
 <template>
   <van-nav-bar
-    title="f-mall"
+    :title="title"
     left-text="返回"
     left-arrow
     safe-area-inset-top
@@ -15,11 +23,8 @@ const onClickLeft = () => history.back()
   <RouterView />
 </template>
 
-<style lang="scss" scoped>
-.name {
-  width: 100px;
-  height: 100px;
-  font-size: 26px;
-  color: $color-primary;
+<style lang="scss">
+body {
+  padding-bottom: var(--van-tabbar-height);
 }
 </style>

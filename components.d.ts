@@ -12,9 +12,17 @@ declare module '@vue/runtime-core' {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    VanActionBar: typeof import('vant/es')['ActionBar']
+    VanActionBarButton: typeof import('vant/es')['ActionBarButton']
+    VanActionBarIcon: typeof import('vant/es')['ActionBarIcon']
     VanButton: typeof import('vant/es')['Button']
+    VanCard: typeof import('vant/es')['Card']
+    VanGrid: typeof import('vant/es')['Grid']
+    VanGridItem: typeof import('vant/es')['GridItem']
     VanNavBar: typeof import('vant/es')['NavBar']
     VanSwipe: typeof import('vant/es')['Swipe']
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
+    VanTabbar: typeof import('vant/es')['Tabbar']
+    VanTabbarItem: typeof import('vant/es')['TabbarItem']
   }
 }
