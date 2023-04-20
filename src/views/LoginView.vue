@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { useRoute, useRouter } from 'vue-router'
 import { http } from '@/utils/http'
 import loginApi from '@/api/login'
 import { useAuthStore } from '@/stores/auth'
+import { setLocalStorage } from '@/utils/common'
+import { STORAGE_NAME } from '@/utils/constant'
 
 const store = useAuthStore()
-console.log(store)
+const route = useRoute()
+const router = useRouter()
+let redirect = route.query.redirect || '/'
+
+console.log(router.currentRoute.value)
 
 const toLogin = () => {
   http({
@@ -16,9 +23,12 @@ const toLogin = () => {
     }
   })
     .then((res) => {
-      console.log(666, res)
       store.setToken(res.data.token)
-      console.log(777,store.token)
+      setLocalStorage(STORAGE_NAME.TOKEN, res.data.token)
+
+      router.replace({
+        path: redirect
+      })
     })
     .catch((err) => {
       console.log(err)

@@ -16,7 +16,7 @@ const dateFormat = (date: Date, format: string) => {
     S: dateObj.getMilliseconds() //毫秒
   }
 
-  format = format.replace(/([yMdhmsS])+/g, function (all, item) {
+  format = format.replace(/([yMdhmsS])+/g, function(all, item) {
     let val = map[item]
 
     if (val !== undefined) {
@@ -62,11 +62,6 @@ const removeLocalStorage = (name: string) => {
 }
 
 /**
- * @description: 当前服务域名
- */
-const DOMAIN = window.location.origin
-
-/**
  * @description: 读取location.search中的参数值
  * @param {string} name 名称
  * @return {string} url中的参数的值
@@ -108,8 +103,8 @@ const setPageTitle = (title: string) => {
     const i = document.createElement('iframe')
     i.src = '/favicon.ico'
     i.style.display = 'none'
-    i.onload = function () {
-      setTimeout(function () {
+    i.onload = function() {
+      setTimeout(function() {
         i.remove()
       }, 9)
     }
@@ -117,45 +112,13 @@ const setPageTitle = (title: string) => {
   }
 }
 
-/**
- * @description: 生成二维码
- * @method createQrCode
- * @param {string} url - url地址
- * @param {number} w - 二维码的宽度，单位 px
- * @param {number} h - 二维码的高度，单位 px
- * @param {HTMLElement} qrContainer - 包裹生成的二维码的父级元素dom或级元素id
- */
-/*const createQrCode = (
-  url: string,
-  w = 100,
-  h = 100,
-  qrContainer: HTMLElement | string,
-  colorDark = '#000',
-  colorLight = '#fff'
-) => {
-  const screenWidth = window.screen.width
-  const QRCode = require('qrcodejs2')
-  const qrCode = new QRCode(qrContainer, {
-    width: (w * screenWidth) / 750, //图像宽度
-    height: (h * screenWidth) / 750, //图像高度
-    colorDark: colorDark, // 二维码颜色
-    colorLight: colorLight, // 背景色
-    correctLevel: QRCode.CorrectLevel.H //容错级别
-  })
-
-  qrCode.clear() //清除二维码
-  qrCode.makeCode(url) //生成新的二维码
-}*/
-
 export {
   dateFormat,
   getLocalStorage,
   setLocalStorage,
   removeLocalStorage,
-  DOMAIN,
   getUrlParam,
   isAndroid,
   isiOS,
-  setPageTitle,
-  // createQrCode
+  setPageTitle
 }

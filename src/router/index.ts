@@ -39,10 +39,11 @@ router.beforeEach((to, from, next) => {
   const pageStore = usePageStore()
 
   const title = to.meta?.title || ''
-  // @ts-ignore
-  window.document.title = title
-  // @ts-ignore // todo f
-  pageStore.setPageTitle(title)
+
+  if (typeof title === 'string') {
+    window.document.title = title
+    pageStore.setPageTitle(title)
+  }
 
   next()
 })

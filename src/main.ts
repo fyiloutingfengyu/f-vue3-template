@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 import App from './App.vue'
 import router from './router'
+import { getLocalStorage } from '@/utils/common'
+import { STORAGE_NAME } from '@/utils/constant'
 import 'vant/lib/index.css'
 // import './styles/main.scss'
 
@@ -29,5 +32,12 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+
+const authStore = useAuthStore()
+const token = getLocalStorage(STORAGE_NAME.TOKEN)
+
+if (token) {
+  authStore.setToken(token)
+}
 
 app.mount('#app')

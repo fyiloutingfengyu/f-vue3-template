@@ -4,15 +4,13 @@
 import axios from 'axios'
 import { closeToast, showFailToast, showLoadingToast } from 'vant'
 import pinia from '@/stores/pinia'
-
-// todo f
 import type { HttpOptions, LoadingObj } from '@/interface/common'
-
-import { DOMAIN, removeLocalStorage } from '@/utils/common'
+import { removeLocalStorage } from '@/utils/common'
 import { ignoreTokenUrl } from '@/api/ignore-token'
 import { STORAGE_NAME } from '@/utils/constant'
 import { useAuthStore } from '@/stores/auth'
 import { API_BASE_URL } from '@/config'
+import router from '@/router'
 
 const authStore = useAuthStore(pinia)
 
@@ -45,10 +43,15 @@ const getContentType = (type: string) => {
 
 // 跳转到登录页面
 const gotoLogin = () => {
+  // router.currentRoute.value.path 或 location.pathname
   if (location.pathname !== '/login') {
     setTimeout(() => {
-      // todo f 优化
-      window.location.href = `${DOMAIN}/login?redirect=${encodeURIComponent(location.href)}`
+      router.push({
+        path: '/login',
+        query: {
+          redirect: router.currentRoute.value.fullPath
+        }
+      })
     }, 700)
   }
 }
