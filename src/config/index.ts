@@ -25,7 +25,7 @@ const MODE_URL = {
   }
 }
 
-// @ts-ignore
+// @ts-ignore // todo f
 const API_BASE_URL = MODE_URL[import.meta.env.VITE_APP_ENV].apiBaseUrl
 
 export { API_BASE_URL, MODE_URL }

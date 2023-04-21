@@ -9,7 +9,11 @@ import { STORAGE_NAME } from '@/utils/constant'
 const store = useAuthStore()
 const route = useRoute()
 const router = useRouter()
-let redirect = route.query.redirect || '/'
+let redirect = '/'
+
+if (typeof route.query.redirect === 'string') {
+  redirect = route.query.redirect
+}
 
 console.log(router.currentRoute.value)
 
@@ -22,7 +26,7 @@ const toLogin = () => {
       pwd: '123'
     }
   })
-    .then((res) => {
+    .then((res: any) => {
       store.setToken(res.data.token)
       setLocalStorage(STORAGE_NAME.TOKEN, res.data.token)
 

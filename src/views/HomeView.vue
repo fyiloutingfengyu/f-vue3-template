@@ -42,7 +42,7 @@ const goToDetail = (id: string) => {
     title="商品标题"
     thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
     origin-price="10.00"
-    @click="goToDetail(1)"
+    @click="goToDetail('1')"
   />
   <van-card
     num="2"
@@ -52,7 +52,7 @@ const goToDetail = (id: string) => {
     title="商品标题"
     thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
     origin-price="10.00"
-    @click="goToDetail(2)"
+    @click="goToDetail('2')"
   />
   <van-card
     num="2"
@@ -62,7 +62,7 @@ const goToDetail = (id: string) => {
     title="商品标题"
     thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
     origin-price="10.00"
-    @click="goToDetail(2)"
+    @click="goToDetail('3')"
   />
   <van-tabbar v-model="active">
     <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>

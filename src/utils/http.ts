@@ -233,7 +233,7 @@ const http = (options: HttpOptions) => {
     }
 
     interface Config {
-      headers: HeadersObj
+      headers: any
       url: string
       method: any
       data?: any
@@ -254,7 +254,6 @@ const http = (options: HttpOptions) => {
       config['params'] = options.params
     }
 
-    // @ts-ignore todo f
     axios(config)
       .then((res) => {
         resolve(res)

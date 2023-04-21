@@ -48,14 +48,17 @@ export default ({ mode }: { mode: string }) => {
           chunkFileNames: 'assets/js/[name].[hash].js',
           // 自定义构建结果中静态资源的名称
           assetFileNames: (assetInfo) => {
-            let subDir = 'img'
+            if (typeof assetInfo.name === 'string') {
+              let subDir = 'img'
 
-            // @ts-ignore
-            if (path.extname(assetInfo.name) === '.css') {
-              subDir = 'css'
+              if (path.extname(assetInfo.name) === '.css') {
+                subDir = 'css'
+              }
+
+              return `assets/${subDir}/[name].[hash].[ext]`
+            } else {
+              return 'assets/[name].[hash].[ext]'
             }
-
-            return `assets/${subDir}/[name].[hash].[ext]`
           }
         }
       }
