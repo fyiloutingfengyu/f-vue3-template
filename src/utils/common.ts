@@ -99,16 +99,19 @@ const isiOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
  */
 const setPageTitle = (title: string) => {
   document.title = title
+
   if (/ip(hone|od|ad)/i.test(navigator.userAgent)) {
-    const i = document.createElement('iframe')
-    i.src = '/favicon.ico'
-    i.style.display = 'none'
-    i.onload = function() {
+    const iframe = document.createElement('iframe')
+
+    iframe.src = '/favicon.ico'
+    iframe.style.display = 'none'
+    iframe.onload = function() {
       setTimeout(function() {
-        i.remove()
-      }, 9)
+        iframe.remove()
+      }, 10)
     }
-    document.body.appendChild(i)
+
+    document.body.appendChild(iframe)
   }
 }
 
