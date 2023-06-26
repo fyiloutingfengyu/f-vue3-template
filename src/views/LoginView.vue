@@ -53,8 +53,10 @@ const toLogin = () => {
 
 <style scoped lang="scss">
 .test-pic {
-  visibility: hidden;
-  width: 100%;
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 100px;
 }
 
 .alipay-icon {

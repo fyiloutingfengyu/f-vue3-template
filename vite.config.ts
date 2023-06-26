@@ -133,7 +133,8 @@ export default ({ mode }: { mode: string }) => {
     // 本地ip访问
     server: {
       port: 8099,
-      host: '0.0.0.0'
+      host: '0.0.0.0',
+      origin: 'http://localhost:8099'
     }
   })
 }
