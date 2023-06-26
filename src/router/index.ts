@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { usePageStore } from '@/stores/page'
 import Home from '../views/HomeView.vue'
-import { fixStyleBug } from '@/utils/qiankun-fix'
-import { qiankunWindow } from 'vite-plugin-qiankun/es/helper'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,13 +46,6 @@ router.beforeEach((to, from, next) => {
   }
 
   next()
-})
-
-router.afterEach(() => {
-  // 修复项目嵌入 qiankun 后样式错乱的问题
-  if (qiankunWindow.__POWERED_BY_QIANKUN__) {
-    fixStyleBug()
-  }
 })
 
 export default router

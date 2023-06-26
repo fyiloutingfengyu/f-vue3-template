@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import type { App } from 'vue'
 import { createPinia } from 'pinia'
 import { renderWithQiankun, qiankunWindow } from 'vite-plugin-qiankun/es/helper'
-import { fixStyleBug } from '@/utils/qiankun-fix'
 import { useAuthStore } from '@/stores/auth'
 import app from './App.vue'
 import router from './router'
@@ -36,8 +35,6 @@ if (import.meta.env.VITE_APP_ENV === 'mock') {
 // qiankun生命周期函数
 renderWithQiankun({
   mount(props: any) {
-    // todo f
-    fixStyleBug()
     render(props)
   },
   bootstrap() {
