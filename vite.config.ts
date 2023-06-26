@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import qiankun from 'vite-plugin-qiankun'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
@@ -28,7 +29,7 @@ const useViteMockServe = (mode: string) => {
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
-    base: '/', // 开发或生产服务的公共基础路径，默认值为 '/'
+    base: '/sub-vue', // 开发或生产服务的公共基础路径，默认值为 '/'
     build: {
       minify: 'esbuild',
       rollupOptions: {
@@ -88,7 +89,10 @@ export default ({ mode }: { mode: string }) => {
         ext: '.gz'
       }),
       useViteMockServe(mode),
-      visualizer({})
+      visualizer({}),
+      qiankun('sub-vue', {
+        useDevMode: true // 不使用热更新
+      })
     ],
     resolve: {
       alias: {

@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
+import type { App } from 'vue'
 import { createPinia } from 'pinia'
+import { renderWithQiankun, qiankunWindow } from 'vite-plugin-qiankun/es/helper'
+import { fixStyleBug } from '@/utils/qiankun-fix'
 import { useAuthStore } from '@/stores/auth'
-import App from './App.vue'
+import app from './App.vue'
 import router from './router'
 import { getLocalStorage } from '@/utils/common'
 import { STORAGE_NAME } from '@/utils/constant'
@@ -14,6 +17,8 @@ import 'vant/es/toast/style'
 import 'vant/es/dialog/style'
 import 'vant/es/notify/style'
 import 'vant/es/image-preview/style'
+
+let root: App
 
 console.log(import.meta.env)
 console.log(import.meta.env.VITE_APP_ENV)
@@ -28,16 +33,46 @@ if (import.meta.env.VITE_APP_ENV === 'mock') {
   })
 }
 
-const app = createApp(App)
+// qiankun生命周期函数
+renderWithQiankun({
+  mount(props: any) {
+    // todo f
+    fixStyleBug()
+    render(props)
+  },
+  bootstrap() {
+  },
+  unmount() {
+    root.unmount()
+  },
+  update() {
+  }
+})
 
-app.use(createPinia())
-app.use(router)
-
-const authStore = useAuthStore()
-const token = getLocalStorage(STORAGE_NAME.TOKEN)
-
-if (token) {
-  authStore.setToken(token)
+// 非qiankun 环境，独立运行
+if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
+  console.log('独立运行')
+  render({})
 }
 
-app.mount('#app')
+// 挂载页面
+function render(props: any) {
+  console.log('666 sub-vue', props)
+  const { container } = props
+
+  root = createApp(app)
+
+  root.use(createPinia())
+  root.use(router)
+
+  const authStore = useAuthStore()
+  const token = getLocalStorage(STORAGE_NAME.TOKEN)
+
+  if (token) {
+    authStore.setToken(token)
+  }
+
+  const dom = container ? container.querySelector('#app') : '#app'
+
+  root.mount(dom)
+}
