@@ -90,6 +90,7 @@ export default ({ mode }: { mode: string }) => {
       }),
       useViteMockServe(mode),
       visualizer({}),
+      // 名称为主应用中注册的该子应用的名称
       qiankun('sub-vue', {
         useDevMode: true // 不使用热更新
       })
