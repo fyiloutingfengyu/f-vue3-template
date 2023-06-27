@@ -14,6 +14,8 @@ import legacy from '@vitejs/plugin-legacy' // 处理浏览器兼容性
 import viteCompression from 'vite-plugin-compression'
 import path from 'path'
 
+const packageJson = require('./package.json')
+
 const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
   if (loadEnv(mode, process.cwd()).VITE_APP_ENV === 'mock') {
@@ -31,6 +33,14 @@ export default ({ mode }: { mode: string }) => {
   return defineConfig({
     base: '/sub-vue', // 开发或生产服务的公共基础路径，默认值为 '/'
     build: {
+      /*target: 'es2015',
+      // todo f
+      lib: {
+        name: packageJson.name,
+        entry: path.resolve(__dirname, './src/main.ts'),
+        formats: ['umd'],
+        fileName: packageJson.name
+      },*/
       minify: 'esbuild',
       rollupOptions: {
         /*plugins: [
@@ -134,7 +144,11 @@ export default ({ mode }: { mode: string }) => {
     server: {
       port: 8099,
       host: '0.0.0.0',
-      origin: 'http://localhost:8099'
+      origin: 'http://localhost:8099',
+      cors: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
     }
   })
 }
