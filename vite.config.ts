@@ -33,14 +33,7 @@ export default ({ mode }: { mode: string }) => {
   return defineConfig({
     base: '/sub-vue', // 开发或生产服务的公共基础路径，默认值为 '/'
     build: {
-      /*target: 'es2015',
-      // todo f
-      lib: {
-        name: packageJson.name,
-        entry: path.resolve(__dirname, './src/main.ts'),
-        formats: ['umd'],
-        fileName: packageJson.name
-      },*/
+      target: 'es2015',
       minify: 'esbuild',
       rollupOptions: {
         /*plugins: [
@@ -90,7 +83,19 @@ export default ({ mode }: { mode: string }) => {
         fileRegex: /.ts$|.vue$/
       }),
       legacy({
-        targets: ['defaults', 'not IE 11']
+        targets: [
+          "> 1%, last 1 version, ie >= 11",
+          "safari >= 10",
+          "Android > 39",
+          "Chrome >= 60",
+          "Safari >= 10.1",
+          "iOS >= 10.3",
+          "Firefox >= 54",
+          "Edge >= 15"
+        ],
+        additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
+        polyfills: ["es.promise.finally", "es/map", "es/set"],
+        modernPolyfills: ["es.promise.finally"]
       }),
       viteCompression({
         verbose: true,
