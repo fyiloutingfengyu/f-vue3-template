@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { http } from '@/utils/http'
+import http from '@/utils/http'
 import loginApi from '@/api/login'
 import { useAuthStore } from '@/stores/auth'
 import { setLocalStorage } from '@/utils/common'
@@ -25,18 +25,16 @@ const toLogin = () => {
       mobilePhone: '18888888888',
       pwd: '123'
     }
-  })
-    .then((res: any) => {
-      store.setToken(res.data.token)
-      setLocalStorage(STORAGE_NAME.TOKEN, res.data.token)
+  }).then((res: any) => {
+    store.setToken(res.data.token)
+    setLocalStorage(STORAGE_NAME.TOKEN, res.data.token)
 
-      router.replace({
-        path: redirect
-      })
+    router.replace({
+      path: redirect
     })
-    .catch((err) => {
-      console.log(err)
-    })
+  }).catch((err) => {
+    console.log(err)
+  })
 }
 
 </script>
