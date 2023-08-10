@@ -14,12 +14,6 @@ import { API_BASE_URL } from '@/config'
 import router from '@/router'
 
 const authStore = useAuthStore(pinia)
-
-const request = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 30000
-})
-
 const urlArr: UrlArr = {}
 let count = 0
 
@@ -136,6 +130,11 @@ const http = (options: HttpOptions) => {
     removeUrlCache(options)
     return Promise.reject()
   }
+
+  const request = axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 30000
+  })
 
   request.interceptors.request.use(
     (config) => {
