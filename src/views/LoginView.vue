@@ -46,6 +46,7 @@ const toLogin = () => {
     <img class="test-pic" src="@/assets/images/test_pic.jpg" alt="">
     <i class="alipay-icon"></i>
   </div>
+  <div class="test-auto-prefix">test</div>
 </template>
 
 
@@ -62,4 +63,10 @@ const toLogin = () => {
   background: url("../assets/images/icon_apliay.png") no-repeat left center;
   background-size: 100% 100%;
 }
+
+.test-auto-prefix {
+  opacity: 0.5;
+  transform: rotate(30deg);
+}
+
 </style>

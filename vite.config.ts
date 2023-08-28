@@ -12,6 +12,7 @@ import legacy from '@vitejs/plugin-legacy' // 处理浏览器兼容性
 // import externalGlobals from 'rollup-plugin-external-globals'
 import viteCompression from 'vite-plugin-compression'
 import path from 'path'
+import autoprefixer from 'autoprefixer'
 
 const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
@@ -78,9 +79,7 @@ export default ({ mode }: { mode: string }) => {
       requireTransform({
         fileRegex: /.ts$|.vue$/
       }),
-      legacy({
-        targets: ['defaults', 'not IE 11']
-      }),
+      legacy(),
       viteCompression({
         verbose: true,
         disable: false,
@@ -116,7 +115,8 @@ export default ({ mode }: { mode: string }) => {
             mediaQuery: true, // 是否在媒体查询的css代码中进行单位转换，默认false
             replace: true, // 是否转换后直接更换属性值
             landscape: false // 是否处理横屏情况
-          })
+          }),
+          autoprefixer()
         ]
       },
       preprocessorOptions: {
