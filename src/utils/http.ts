@@ -3,7 +3,6 @@
  */
 import axios from 'axios'
 import { closeToast, showFailToast, showLoadingToast } from 'vant'
-import pinia from '@/stores/pinia'
 import type { HttpOptions, LoadingObj } from '@/interface/common'
 import type { UrlArr, HeadersObj, AxiosConfig } from '@/interface/http'
 import { removeLocalStorage } from '@/utils/common'
@@ -13,7 +12,7 @@ import { useAuthStore } from '@/stores/auth'
 import { API_BASE_URL } from '@/config'
 import router from '@/router'
 
-const authStore = useAuthStore(pinia)
+const authStore = useAuthStore()
 const urlArr: UrlArr = {}
 let count = 0
 

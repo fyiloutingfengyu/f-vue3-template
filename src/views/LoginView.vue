@@ -6,7 +6,7 @@ import { useAuthStore } from '@/stores/auth'
 import { setLocalStorage } from '@/utils/common'
 import { STORAGE_NAME } from '@/utils/constant'
 
-const store = useAuthStore()
+const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 let redirect = '/'
@@ -26,7 +26,7 @@ const toLogin = () => {
       pwd: '123'
     }
   }).then((res: any) => {
-    store.setToken(res.data.token)
+    authStore.setToken(res.data.token)
     setLocalStorage(STORAGE_NAME.TOKEN, res.data.token)
 
     router.replace({
