@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
-import { VantResolver } from 'unplugin-vue-components/resolvers'
+import { VantResolver } from '@vant/auto-import-resolver'
 import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
 import { viteMockServe } from 'vite-plugin-mock'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -71,10 +71,7 @@ export default ({ mode }: { mode: string }) => {
       vue(),
       vueJsx(),
       Components({
-        resolvers: [
-          VantResolver({
-            // importStyle: false // 按需引入Vant组件时，不导入样式
-          })]
+        resolvers: [VantResolver()]
       }),
       requireTransform({
         fileRegex: /.ts$|.vue$/

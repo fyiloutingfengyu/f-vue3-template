@@ -5,11 +5,11 @@ import App from './App.vue'
 import router from './router'
 import { getLocalStorage } from '@/utils/common'
 import { STORAGE_NAME } from '@/utils/constant'
-import 'vant/lib/index.css'
-// import './styles/main.scss'
+import './styles/main.scss'
 
 // Toast,Dialog,Notify和ImagePreview组件是以函数的形式提供的，
-// unplugin-vue-components无法自动引入对应的样式，需要手动引入
+// unplugin-vue-components 无法解析自动注册组件，
+// 导致 @vant/auto-import-resolver 无法解析样式，因此需要手动引入样式。
 import 'vant/es/toast/style'
 import 'vant/es/dialog/style'
 import 'vant/es/notify/style'
