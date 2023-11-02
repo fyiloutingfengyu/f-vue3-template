@@ -1,0 +1,102 @@
+@charset "utf-8";
+
+@import "reset.scss";
+@import "./mixins/ellipsis.scss";
+@import "./mixins/hairline.scss";
+
+body {
+  min-height: 100vh;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+  Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  /* optimizeLegibility 浏览器在绘制文本时着重考虑易读性，而不是渲染速度和几何精度*/
+  /* 会使字间距和连字有效 */
+  /* optimizeLegibility 在移动设备上会造成明显的性能问题*/
+  /*text-rendering: optimizeLegibility;*/
+  /* 对字体进行抗锯齿渲染，是字体看起来更清晰舒服 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: constant(safe-area-inset-left);
+  padding-left: env(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
+  padding-right: env(safe-area-inset-right);
+}
+
+// 单行文本省略
+.text-ellipsis {
+  @include ellipsis();
+}
+
+// 2行文本省略
+.text-multi-ellipsis-l2 {
+  @include multi-ellipsis(2);
+}
+
+// 3行文本省略
+.text-multi-ellipsis-l3 {
+  @include multi-ellipsis(3);
+}
+
+.safe-area-top {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+// 1px
+// 所有包含 'common-hairline' 字符串的class
+// 这里使用的是默认的颜色，是通用样式
+// 个性化的颜色可以使用 hairline.scss中的mixin去定制
+[class*="common-hairline"] {
+  &::after {
+    @include hairline();
+  }
+}
+
+.common-hairline {
+  &,
+  &--top,
+  &--left,
+  &--right,
+  &--bottom,
+  &--surround,
+  &--top-bottom {
+    position: relative;
+  }
+
+  &--top::after {
+    border-top-width: $common-border-width;
+  }
+
+  &--left::after {
+    border-left-width: $common-border-width;
+  }
+
+  &--right::after {
+    border-right-width: $common-border-width;
+  }
+
+  &--bottom::after {
+    border-bottom-width: $common-border-width;
+  }
+
+  &,
+  &-unset {
+    &--top-bottom::after {
+      border-width: $common-border-width 0;
+    }
+  }
+
+  &--surround::after {
+    border-width: $common-border-width;
+  }
+}

@@ -5,7 +5,7 @@ import App from './App.vue'
 import router from './router'
 import { getLocalStorage } from '@/utils/common'
 import { STORAGE_NAME } from '@/utils/constant'
-import './styles/main.scss'
+import './styles/common.scss'
 
 // Toast,Dialog,Notify和ImagePreview组件是以函数的形式提供的，
 // unplugin-vue-components 无法解析自动注册组件，
