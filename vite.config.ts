@@ -46,9 +46,9 @@ export default ({ mode }: { mode: string }) => {
             vue: 'Vue'
           },*/
           // 指定chunks的入口文件模式
-          entryFileNames: 'assets/js/[name].[hash].js',
+          entryFileNames: 'assets/js/[name]-[hash].js',
           // 对代码分割产生的chunk进行自定义命名
-          chunkFileNames: 'assets/js/[name].[hash].js',
+          chunkFileNames: 'assets/js/[name]-[hash].js',
           // 自定义构建结果中静态资源的名称
           assetFileNames: (assetInfo) => {
             if (typeof assetInfo.name === 'string') {
@@ -58,9 +58,9 @@ export default ({ mode }: { mode: string }) => {
                 subDir = 'css'
               }
 
-              return `assets/${subDir}/[name].[hash].[ext]`
+              return `assets/${subDir}/[name]-[hash].[ext]`
             } else {
-              return 'assets/[name].[hash].[ext]'
+              return 'assets/[name]-[hash].[ext]'
             }
           }
         }
@@ -80,9 +80,9 @@ export default ({ mode }: { mode: string }) => {
       }),
       legacy(),
       viteCompression({
-        verbose: true,
-        disable: false,
-        algorithm: 'gzip',
+        verbose: true, // 控制台中输出压缩结果
+        disable: false, // 是否禁用
+        algorithm: 'gzip', // 压缩算法
         ext: '.gz'
       }),
       useViteMockServe(mode),
