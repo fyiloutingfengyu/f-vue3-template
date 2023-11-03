@@ -28,6 +28,8 @@ const useViteMockServe = (mode: string) => {
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
+  console.log('mode', mode)
+  console.log('NODE_ENV', process.env.NODE_ENV)
   return defineConfig({
     base: '/', // 开发或生产服务的公共基础路径，默认值为 '/'
     build: {
