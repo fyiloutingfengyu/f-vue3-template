@@ -18,7 +18,7 @@ const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
   if (loadEnv(mode, process.cwd()).VITE_APP_ENV === 'mock') {
     return viteMockServe({
-      mockPath: 'mock', // 默认值 'mock'
+      mockPath: './src/mock', // 默认值 'mock'
       supportTs: true, // 默认值 true
       localEnabled: true,
       prodEnabled: false
