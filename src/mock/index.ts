@@ -6,7 +6,6 @@ import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer'
 import login from './login'
 import user from './user'
 
-// todo f 优化
 export function setupProdMockServer() {
   createProdMockServer([
     ...login,

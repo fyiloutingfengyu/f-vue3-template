@@ -20,7 +20,6 @@ console.log(import.meta.env.VITE_APP_ENV)
 console.log(process.env.NODE_ENV)
 
 if (import.meta.env.VITE_APP_ENV === 'mock') {
-  // todo f 优化
   const mockModule = import.meta.glob('./mock/index.ts')
   console.log(mockModule)
 
