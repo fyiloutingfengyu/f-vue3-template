@@ -14,6 +14,8 @@ import viteCompression from 'vite-plugin-compression'
 import path from 'path'
 import autoprefixer from 'autoprefixer'
 
+import vitePluginStartingPattern from 'vite-plugin-starting-pattern'
+
 const useViteMockServe = (mode: string) => {
   // process.cwd()前执行node命令时候的文件夹地址
   if (loadEnv(mode, process.cwd()).VITE_APP_ENV === 'mock') {
@@ -30,6 +32,7 @@ const useViteMockServe = (mode: string) => {
 export default ({ mode }: { mode: string }) => {
   console.log('mode', mode)
   console.log('NODE_ENV', process.env.NODE_ENV)
+
   return defineConfig({
     base: '/', // 开发或生产服务的公共基础路径，默认值为 '/'
     build: {
@@ -86,7 +89,9 @@ export default ({ mode }: { mode: string }) => {
         ext: '.gz'
       }),
       useViteMockServe(mode),
-      visualizer({})
+      visualizer({}),
+      // @ts-ignore
+      vitePluginStartingPattern()
     ],
     resolve: {
       alias: {
