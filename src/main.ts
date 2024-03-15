@@ -35,6 +35,21 @@ if (import.meta.env.VITE_APP_ENV === 'mock') {
 // qiankun生命周期函数
 renderWithQiankun({
   mount(props: any) {
+    console.log('qiankun props', props)
+
+    props.onGlobalStateChange((state: any, prev: any) => {
+      console.log('qiankun onGlobalStateChange', state)
+      console.log('prev', prev)
+      // 获取父组件传递的状态
+      if (state.userInfo) {
+        // todo f 存储用户信息
+      }
+
+      if (state.token) {
+        // 存储token信息
+      }
+    }, true) // 首次加载也执行
+
     render(props)
   },
   bootstrap() {
@@ -54,7 +69,6 @@ if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
 
 // 挂载页面
 function render(props: any) {
-  console.log('666 sub-vue', props)
   const { container } = props
 
   root = createApp(app)

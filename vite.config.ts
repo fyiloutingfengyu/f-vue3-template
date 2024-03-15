@@ -149,7 +149,7 @@ export default ({ mode }: { mode: string }) => {
     server: {
       port: 8099,
       host: '0.0.0.0',
-      origin: 'http://localhost:8099',
+      origin: 'http://localhost:8099', // 开发服务器的基础路径
       cors: true,
       headers: {
         'Access-Control-Allow-Origin': '*'
