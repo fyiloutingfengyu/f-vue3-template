@@ -69,9 +69,11 @@ if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
 
 // 挂载页面
 function render(props: any) {
-  const { container } = props
+  const { container, mainAppRouter } = props
 
   root = createApp(app)
+
+  root.provide('maiAppRouter', mainAppRouter)
 
   root.use(createPinia())
   root.use(router)

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { inject } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { http } from '@/utils/http'
 import loginApi from '@/api/login'
@@ -10,6 +11,8 @@ const store = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 let redirect = '/'
+const mainAppRouter = inject('maiAppRouter')
+console.log(111,mainAppRouter)
 
 if (typeof route.query.redirect === 'string') {
   redirect = route.query.redirect
@@ -39,6 +42,14 @@ const toLogin = () => {
     })
 }
 
+const toReactApp = () => {
+  history.pushState(null, '', '/sub-react')
+}
+
+const toMainApp = () => {
+  mainAppRouter.push('/')
+}
+
 </script>
 
 <template>
@@ -47,6 +58,8 @@ const toLogin = () => {
 
     <img class="test-pic" src="@/assets/images/test_pic.jpg" alt="">
     <i class="alipay-icon"></i>
+    <van-button @click="toReactApp">去react子应用</van-button>
+    <van-button @click="toMainApp">去主应用</van-button>
   </div>
 </template>
 
