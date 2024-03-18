@@ -3,9 +3,9 @@
  */
 
 // storage 名称
-const STORAGE_NAME = {
+const COMMON_STORAGE = {
   TOKEN: 'Authorization', // token
   USER_INFO: 'userInfo' // 用户信息
 }
 
-export { STORAGE_NAME }
+export { COMMON_STORAGE }

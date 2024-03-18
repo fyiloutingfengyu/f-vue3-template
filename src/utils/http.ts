@@ -7,7 +7,7 @@ import pinia from '@/stores/pinia'
 import type { HttpOptions, LoadingObj } from '@/interface/common'
 import { removeLocalStorage } from '@/utils/common'
 import { ignoreTokenUrl } from '@/api/ignore-token'
-import { STORAGE_NAME } from '@/utils/constant'
+import { COMMON_STORAGE } from '@/utils/constant'
 import { useAuthStore } from '@/stores/auth'
 import { API_BASE_URL } from '@/config'
 import router from '@/router'
@@ -48,7 +48,9 @@ const gotoLogin = () => {
     setTimeout(() => {
       router.push({
         path: '/login',
+        // @ts-ignore
         query: {
+          // @ts-ignore
           redirect: router.currentRoute.value.fullPath
         }
       })
@@ -160,7 +162,7 @@ const http = (options: HttpOptions) => {
             case 401: // 未登录、登陆过期
             case 402: // 未登录、登陆过期
               showFailToast('身份认证失败,请重新登录！')
-              removeLocalStorage(STORAGE_NAME.TOKEN)
+              removeLocalStorage(COMMON_STORAGE.TOKEN)
               authStore.setToken('')
 
               gotoLogin()

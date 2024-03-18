@@ -5,7 +5,7 @@ import { http } from '@/utils/http'
 import loginApi from '@/api/login'
 import { useAuthStore } from '@/stores/auth'
 import { setLocalStorage } from '@/utils/common'
-import { STORAGE_NAME } from '@/utils/constant'
+import { COMMON_STORAGE } from '@/utils/constant'
 
 const store = useAuthStore()
 const route = useRoute()
@@ -31,7 +31,7 @@ const toLogin = () => {
   })
     .then((res: any) => {
       store.setToken(res.data.token)
-      setLocalStorage(STORAGE_NAME.TOKEN, res.data.token)
+      setLocalStorage(COMMON_STORAGE.TOKEN, res.data.token)
 
       router.replace({
         path: redirect

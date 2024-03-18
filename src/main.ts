@@ -7,7 +7,7 @@ import { useAuthStore } from '@/stores/auth'
 import app from './App.vue'
 import routes from './router'
 import { getLocalStorage } from '@/utils/common'
-import { STORAGE_NAME } from '@/utils/constant'
+import { COMMON_STORAGE } from '@/utils/constant'
 import 'vant/lib/index.css'
 // import './styles/main.scss'
 
@@ -95,7 +95,7 @@ function render(props: any) {
   root.use(router)
 
   const authStore = useAuthStore()
-  const token = getLocalStorage(STORAGE_NAME.TOKEN)
+  const token = getLocalStorage(COMMON_STORAGE.TOKEN)
 
   if (token) {
     authStore.setToken(token)
