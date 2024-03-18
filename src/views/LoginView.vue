@@ -11,8 +11,8 @@ const store = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 let redirect = '/'
-const mainAppRouter = inject('maiAppRouter')
-console.log(111,mainAppRouter)
+const mainAppRouter: any = inject('maiAppRouter')
+console.log(111, mainAppRouter)
 
 if (typeof route.query.redirect === 'string') {
   redirect = route.query.redirect
@@ -43,7 +43,7 @@ const toLogin = () => {
 }
 
 const toReactApp = () => {
-  history.pushState(null, '', '/sub-react')
+  history.pushState(null, 'sub-react', '/sub-react')
 }
 
 const toMainApp = () => {

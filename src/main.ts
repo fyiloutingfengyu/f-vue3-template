@@ -1,10 +1,11 @@
 import { createApp } from 'vue'
 import type { App } from 'vue'
 import { createPinia } from 'pinia'
+import { createRouter, createWebHistory } from 'vue-router'
 import { renderWithQiankun, qiankunWindow } from 'vite-plugin-qiankun/es/helper'
 import { useAuthStore } from '@/stores/auth'
 import app from './App.vue'
-import router from './router'
+import routes from './router'
 import { getLocalStorage } from '@/utils/common'
 import { STORAGE_NAME } from '@/utils/constant'
 import 'vant/lib/index.css'
@@ -17,7 +18,9 @@ import 'vant/es/dialog/style'
 import 'vant/es/notify/style'
 import 'vant/es/image-preview/style'
 
-let root: App
+let root: App | null
+let router = null
+let history: any = null
 
 console.log(import.meta.env)
 console.log(import.meta.env.VITE_APP_ENV)
@@ -55,7 +58,14 @@ renderWithQiankun({
   bootstrap() {
   },
   unmount() {
-    root.unmount()
+    if (root) {
+      root.unmount()
+      root._container.innerHTML = ''
+    }
+
+    history.destroy()
+    router = null
+    root = null
   },
   update() {
   }
@@ -70,6 +80,12 @@ if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
 // 挂载页面
 function render(props: any) {
   const { container, mainAppRouter } = props
+
+  history = createWebHistory(qiankunWindow.__POWERED_BY_QIANKUN__ ? import.meta.env.BASE_URL : '/')
+  router = createRouter({
+    history,
+    routes
+  })
 
   root = createApp(app)
 

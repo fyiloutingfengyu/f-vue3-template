@@ -24,7 +24,7 @@ const goToDetail = (id: string) => {
 </script>
 
 <template>
-  <van-swipe class="home-swipe" :autoplay="3000" lazy-render>
+<!--  <van-swipe class="home-swipe" :autoplay="3000" lazy-render>
     <van-swipe-item v-for="image in images" :key="image">
       <img :src="image" />
     </van-swipe-item>
@@ -63,7 +63,7 @@ const goToDetail = (id: string) => {
     thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
     origin-price="10.00"
     @click="goToDetail('3')"
-  />
+  />-->
   <van-tabbar v-model="active">
     <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
     <van-tabbar-item icon="search" dot>分类</van-tabbar-item>
