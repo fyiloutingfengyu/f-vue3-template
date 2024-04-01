@@ -3,8 +3,8 @@
  */
 import axios from 'axios'
 import { closeToast, showFailToast, showLoadingToast } from 'vant'
-import type { HttpOptions, LoadingObj } from '@/interface/common'
-import type { UrlArr, HeadersObj, AxiosConfig } from '@/interface/http'
+import type { HttpOptions, LoadingObj } from '@/types/common'
+import type { UrlArr, HeadersObj, AxiosConfig } from '@/types/http'
 import { removeLocalStorage } from '@/utils/common'
 import { ignoreTokenUrl } from '@/api/ignore-token'
 import { STORAGE_NAME } from '@/constants/common'
