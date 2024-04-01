@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 import App from './App.vue'
 import router from './router'
 import { getLocalStorage } from '@/utils/common'
-import { STORAGE_NAME } from '@/utils/constant'
+import { STORAGE_NAME } from '@/constants/common'
 import './styles/common.scss'
 
 // Toast,Dialog,Notify和ImagePreview组件是以函数的形式提供的，

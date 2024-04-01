@@ -4,7 +4,7 @@ import http from '@/utils/http'
 import loginApi from '@/api/login'
 import { useAuthStore } from '@/stores/auth'
 import { setLocalStorage } from '@/utils/common'
-import { STORAGE_NAME } from '@/utils/constant'
+import { STORAGE_NAME } from '@/constants/common'
 
 const authStore = useAuthStore()
 const route = useRoute()
