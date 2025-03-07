@@ -37,6 +37,7 @@ export default ({ mode }: { mode: string }) => {
     base: '/', // 开发或生产服务的公共基础路径，默认值为 '/'
     build: {
       minify: 'esbuild',
+      assetsInlineLimit: 4096, // 小于此阈值(如4096 4kb)的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项。
       rollupOptions: {
         /*plugins: [
           externalGlobals({
