@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { usePageStore } from '@/stores/page'
-import Home from '../views/HomeView.vue'
+import Home from '../views/Home.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'Login',
-      component: () => import('../views/LoginView.vue'),
+      component: () => import('../views/Login.vue'),
       meta: {
         title: '登录'
       }
